@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.UUID;
 
@@ -23,13 +24,13 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveNewBeer(@RequestBody BeerDto beerDto) {
+    public ResponseEntity<Void> saveNewBeer(@Valid @RequestBody BeerDto beerDto) {
         beerDto.setId(UUID.randomUUID());
         return ResponseEntity.created(URI.create("/api/v1/beer/" + beerDto.getId())).build();
     }
 
     @PutMapping("/{beerId}")
-    public ResponseEntity<Void> updateBeerById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
+    public ResponseEntity<Void> updateBeerById(@PathVariable("beerId") UUID beerId, @Valid @RequestBody BeerDto beerDto) {
         return ResponseEntity.noContent().build();
     }
 
