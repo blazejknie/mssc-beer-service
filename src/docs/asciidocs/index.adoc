@@ -1,0 +1,79 @@
+= SFG Brewery Order Service Docs
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+
+Sample Application demostrating how to use Spring REST docs with JUnit 5.
+
+'BeerControllerTest' makes a call to a very simple service and produces three
+documentation snippets.
+
+GET BEER
+
+One showing how to make request using cURL:
+
+include::{snippets}/v1/beer-get/curl-request.adoc[]
+
+One showing the http request:
+
+include::{snippets}/v1/beer-get/http-request.adoc[]
+
+And one showing the http response:
+
+include::{snippets}/v1/beer-get/http-response.adoc[]
+
+
+Response Body:
+
+include::{snippets}/v1/beer-get/response-body.adoc[]
+
+Request Body:
+
+include::{snippets}/v1/beer-get/request-body.adoc[]
+
+NEW BEER
+
+One showing how to make request using cURL:
+
+include::{snippets}/v1/beer-new/curl-request.adoc[]
+
+One showing the http request:
+
+include::{snippets}/v1/beer-new/http-request.adoc[]
+
+And one showing the http response:
+
+include::{snippets}/v1/beer-new/http-response.adoc[]
+
+
+Response Body:
+
+include::{snippets}/v1/beer-new/response-body.adoc[]
+
+Response fields:
+
+include::{snippets}/v1/beer-new/request-fields.adoc[]
+
+UPDATE BEER
+
+One showing how to make request using cURL:
+
+include::{snippets}/v1/beer-update/curl-request.adoc[]
+
+One showing the http request:
+
+include::{snippets}/v1/beer-update/http-request.adoc[]
+
+And one showing the http response:
+
+include::{snippets}/v1/beer-update/http-response.adoc[]
+
+
+Response Body:
+
+include::{snippets}/v1/beer-update/response-body.adoc[]
+
+Response fields:
+
+include::{snippets}/v1/beer-update/request-fields.adoc[]
+
