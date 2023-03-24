@@ -1,4 +1,4 @@
-package com.blazejknie.msscbeerservice.mapper;
+package com.blazejknie.msscbeerservice.web.mappers;
 
 import com.blazejknie.msscbeerservice.domain.Beer;
 import com.blazejknie.msscbeerservice.web.model.BeerDto;

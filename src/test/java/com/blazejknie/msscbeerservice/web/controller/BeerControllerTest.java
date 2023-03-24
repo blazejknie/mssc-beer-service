@@ -1,24 +1,34 @@
 package com.blazejknie.msscbeerservice.web.controller;
 
+import com.blazejknie.msscbeerservice.bootstrap.BeerLoader;
+import com.blazejknie.msscbeerservice.services.BeerService;
 import com.blazejknie.msscbeerservice.web.model.BeerDto;
 import com.blazejknie.msscbeerservice.web.model.BeerStyle;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.constraints.ConstraintDescriptions;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
@@ -33,18 +43,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith({RestDocumentationExtension.class})
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "dev.springframework.blazej", uriPort = 80)
 @WebMvcTest(BeerController.class)
-//@ComponentScan(basePackages = {"com/blazejknie/msscbeerservice/mapper"})
 class BeerControllerTest {
-    @Autowired
+
     MockMvc mockMvc;
 
     @Autowired
     ObjectMapper objectMapper;
 
-//    @BeforeEach
-//    void setUp() {
-//        mockMvc = MockMvcBuilders.standaloneSetup(BeerController.class).build();
-//    }
+    @MockBean
+    BeerService beerService;
+
+    @BeforeEach
+    void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                                      .apply(documentationConfiguration(restDocumentation))
+                .build();
+    }
+
+
 
     @Test
     void fetchBeerById() throws Exception {
@@ -61,6 +77,8 @@ class BeerControllerTest {
     void saveNewBeer() throws Exception {
         BeerDto build = getValidBeer();
         String beerAsString = objectMapper.writeValueAsString(build);
+
+        given(beerService.save(any(BeerDto.class))).willReturn(build);
 
         ConstrainedFields fields = new ConstrainedFields(BeerDto.class);
 
@@ -82,13 +100,14 @@ class BeerControllerTest {
         BeerDto build = getValidBeer();
         String beerAsString = objectMapper.writeValueAsString(build);
 
+        given(beerService.update(any(UUID.class), any(BeerDto.class))).willReturn(build);
         ConstrainedFields fields = new ConstrainedFields(BeerDto.class);
 
 
         mockMvc.perform(
                        put("/api/v1/beer/{beerId}", UUID.randomUUID().toString()).contentType(MediaType.APPLICATION_JSON)
                                                                                  .content(beerAsString))
-               .andExpect(status().isNoContent())
+               .andExpect(status().isCreated())
                .andDo(document("v1/beer-update",
                        pathParameters(parameterWithName("beerId").description("UUID for dosired beer to get")),
                        requestFields(fieldWithPath("id").ignored(), fieldWithPath("version").ignored(),
@@ -106,7 +125,7 @@ class BeerControllerTest {
                       .beerName("Valid Beer")
                       .beerStyle(BeerStyle.ALE)
                       .price(new BigDecimal("3.00"))
-                      .upc(1243245325345L)
+                      .upc(BeerLoader.BEER_1_UPC)
                       .build();
     }
 
