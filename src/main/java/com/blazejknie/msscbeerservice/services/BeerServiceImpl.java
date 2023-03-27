@@ -7,6 +7,7 @@ import com.blazejknie.msscbeerservice.web.mappers.BeerMapper;
 import com.blazejknie.msscbeerservice.web.model.BeerDto;
 import com.blazejknie.msscbeerservice.web.model.BeerPagedList;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class BeerServiceImpl implements BeerService {
     private final BeerRepository repository;
     private final BeerMapper mapper;
 
+    @Cacheable(cacheNames = "beerCache", condition = "#showOnHand == false", key = "#id")
     @Override
     public BeerDto getById(UUID id, Boolean showOnHand) {
         Beer beer = repository.findById(id).orElseThrow(() -> new NotFoundException("No beer with id: " + id));
@@ -47,8 +49,9 @@ public class BeerServiceImpl implements BeerService {
         return mapper.beerToDto(repository.save(beer));
     }
 
+    @Cacheable(cacheNames = "beerListCache", condition = "#showInventoryOnHand == false ")
     @Override
-    public BeerPagedList listBeers(String beerName, String beerStyle, PageRequest pageRequest, Boolean showOnHand) {
+    public BeerPagedList listBeers(String beerName, String beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
         Page<Beer> beerPage;
         BeerPagedList beerPagedList;
 
@@ -63,7 +66,7 @@ public class BeerServiceImpl implements BeerService {
         }
 
         beerPagedList = new BeerPagedList(
-                beerPage.getContent().stream().map(beer -> mapBeerToDto(beer, showOnHand)).collect(Collectors.toList()),
+                beerPage.getContent().stream().map(beer -> mapBeerToDto(beer, showInventoryOnHand)).collect(Collectors.toList()),
                 PageRequest.of(beerPage.getPageable().getPageNumber(), beerPage.getPageable().getPageSize()),
                 beerPage.getTotalElements());
         return beerPagedList;
