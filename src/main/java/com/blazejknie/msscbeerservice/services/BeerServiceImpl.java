@@ -5,10 +5,15 @@ import com.blazejknie.msscbeerservice.repositories.BeerRepository;
 import com.blazejknie.msscbeerservice.web.controller.NotFoundException;
 import com.blazejknie.msscbeerservice.web.mappers.BeerMapper;
 import com.blazejknie.msscbeerservice.web.model.BeerDto;
+import com.blazejknie.msscbeerservice.web.model.BeerPagedList;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -18,8 +23,9 @@ public class BeerServiceImpl implements BeerService {
     private final BeerMapper mapper;
 
     @Override
-    public BeerDto getById(UUID id) {
-        return mapper.beerToDto(repository.findById(id).orElseThrow(() -> new NotFoundException("No beer with id: " + id)));
+    public BeerDto getById(UUID id, Boolean showOnHand) {
+        Beer beer = repository.findById(id).orElseThrow(() -> new NotFoundException("No beer with id: " + id));
+        return this.mapBeerToDto(beer, showOnHand);
     }
 
     @Override
@@ -39,5 +45,31 @@ public class BeerServiceImpl implements BeerService {
         beer.setUpc(beerDto.getUpc());
 
         return mapper.beerToDto(repository.save(beer));
+    }
+
+    @Override
+    public BeerPagedList listBeers(String beerName, String beerStyle, PageRequest pageRequest, Boolean showOnHand) {
+        Page<Beer> beerPage;
+        BeerPagedList beerPagedList;
+
+        if (StringUtils.hasText(beerName) && StringUtils.hasText(beerStyle)) {
+            beerPage = repository.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageRequest);
+        } else if (StringUtils.hasText(beerName) && !StringUtils.hasText(beerStyle)) {
+            beerPage = repository.findAllByBeerName(beerName, pageRequest);
+        } else if (!StringUtils.hasText(beerName) && StringUtils.hasText(beerStyle)) {
+            beerPage = repository.findAllByBeerStyle(beerStyle, pageRequest);
+        } else {
+            beerPage = repository.findAll(pageRequest);
+        }
+
+        beerPagedList = new BeerPagedList(
+                beerPage.getContent().stream().map(beer -> mapBeerToDto(beer, showOnHand)).collect(Collectors.toList()),
+                PageRequest.of(beerPage.getPageable().getPageNumber(), beerPage.getPageable().getPageSize()),
+                beerPage.getTotalElements());
+        return beerPagedList;
+    }
+
+    private BeerDto mapBeerToDto(Beer beer, boolean showInventory) {
+        return showInventory ? mapper.beerToDtoWithInventory(beer) : mapper.beerToDto(beer);
     }
 }
