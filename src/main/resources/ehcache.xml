@@ -4,6 +4,7 @@
 
     <cache alias="beerListCache" uses-template="default"/>
     <cache alias="beerCache" uses-template="default"/>
+    <cache alias="beerByUpc" uses-template="default"/>
 
 
     <cache-template name="default">

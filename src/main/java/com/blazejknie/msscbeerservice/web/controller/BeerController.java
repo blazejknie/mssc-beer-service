@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.UUID;
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/beer")
+@RequestMapping("/api/v1/")
 @RestController
 public class BeerController {
 
@@ -28,7 +28,7 @@ public class BeerController {
 
     private final BeerService beerService;
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(produces = "application/json", path = "beer")
     public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber",required = false) Integer pageNumber,
                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                    @RequestParam(value = "beerName", required = false) String beerName,
@@ -51,7 +51,7 @@ public class BeerController {
                 showInventoryOnHand));
     }
 
-    @GetMapping("/{beerId}")
+    @GetMapping("beer/{beerId}")
     public ResponseEntity<BeerDto> fetchBeerById(@PathVariable("beerId") UUID beerId,
                                                  @RequestParam(value = "showOnHand", required = false) Boolean showOnHand) {
 
@@ -61,16 +61,24 @@ public class BeerController {
         return ResponseEntity.ok(beerService.getById(beerId, showOnHand));
     }
 
-    @PostMapping
+    @GetMapping("beerUpc/{upc}")
+    public ResponseEntity<BeerDto> fetchBeerByUpc(@PathVariable String upc, @RequestParam(value =
+            "showInventoryOnHand", required = false) Boolean showInventoryOnHand) {
+        if (showInventoryOnHand == null) {
+            showInventoryOnHand = false;
+        }
+        return ResponseEntity.ok(beerService.fetchBeerByUpc(upc, showInventoryOnHand));
+    }
+
+    @PostMapping("beer")
     public ResponseEntity<Void> saveNewBeer(@Valid @RequestBody BeerDto beerDto) {
          BeerDto savedBeer = beerService.save(beerDto);
         return ResponseEntity.created(URI.create("/api/v1/beer/" + savedBeer.getId())).build();
     }
 
-    @PutMapping("/{beerId}")
+    @PutMapping("beer/{beerId}")
     public ResponseEntity<BeerDto> updateBeerById(@PathVariable("beerId") UUID beerId, @Valid @RequestBody BeerDto beerDto) {
         BeerDto updated = beerService.update(beerId, beerDto);
         return ResponseEntity.created(URI.create("/api/v1/beer/" + updated.getId())).build();
     }
-
 }
