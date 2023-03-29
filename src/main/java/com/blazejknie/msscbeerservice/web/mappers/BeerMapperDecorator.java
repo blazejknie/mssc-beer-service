@@ -9,6 +9,7 @@ public abstract class BeerMapperDecorator implements BeerMapper {
 
     InventoryService inventoryService;
 
+
     BeerMapper beerMapper;
 
     @Autowired
