@@ -7,11 +7,11 @@
     <servers>
         <server>
             <id>packagecloud.release</id>
-            <password>9d1461a44efd4442c18be5ccb2424041a57ca2a3ad285122</password>
+            <password>${env.PCLOUD}</password>
         </server>
         <server>
             <id>packagecloud.snapshot</id>
-            <password>9d1461a44efd4442c18be5ccb2424041a57ca2a3ad285122</password>
+            <password>${env.PCLOUD}</password>
         </server>
     </servers>
 
