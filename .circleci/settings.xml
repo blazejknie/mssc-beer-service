@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+
+    <servers>
+        <server>
+            <id>packagecloud.release</id>
+            <password>9d1461a44efd4442c18be5ccb2424041a57ca2a3ad285122</password>
+        </server>
+        <server>
+            <id>packagecloud.snapshot</id>
+            <password>9d1461a44efd4442c18be5ccb2424041a57ca2a3ad285122</password>
+        </server>
+    </servers>
+
+    <profiles>
+        <profile>
+            <id>packagecloud</id>
+            <repositories>
+                <repository>
+                    <id>packagecloud.snapshot</id>
+                    <url>https://packagecloud.io/blazej/snapshot/maven2</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </repository>
+                <repository>
+                    <id>packagecloud.release</id>
+                    <url>https://packagecloud.io/blazej/release/maven2</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>packagecloud</activeProfile>
+    </activeProfiles>
+</settings>
