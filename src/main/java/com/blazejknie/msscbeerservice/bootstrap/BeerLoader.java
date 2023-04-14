@@ -2,12 +2,17 @@ package com.blazejknie.msscbeerservice.bootstrap;
 
 import com.blazejknie.msscbeerservice.domain.Beer;
 import com.blazejknie.msscbeerservice.repositories.BeerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-//@Component
+@Component
+@RequiredArgsConstructor
+@Profile("localmysql")
 public class BeerLoader implements CommandLineRunner {
 
     public static final String BEER_1_UPC = "0631234200036";
@@ -19,19 +24,17 @@ public class BeerLoader implements CommandLineRunner {
 
     private final BeerRepository beerRepository;
 
-    public BeerLoader(BeerRepository beerRepository) {
-        this.beerRepository = beerRepository;
-    }
 
     @Override
     public void run(String... args) throws Exception {
-        loadBeersObjects();
+        if (beerRepository.count() <= 0) {
+            loadBeersObjects();
+        }
     }
 
     private void loadBeersObjects() {
         if (beerRepository.count() == 0) {
             beerRepository.save(Beer.builder()
-                                    .id(BEER_1_UUID)
                                     .beerName("Mango Bobs")
                                     .beerStyle("IPA")
                                     .quantityToBrew(200)
@@ -40,7 +43,6 @@ public class BeerLoader implements CommandLineRunner {
                                     .build());
 
             beerRepository.save(Beer.builder()
-                                  .id(BEER_2_UUID)
                                     .beerName("Galaxy Cat")
                                     .beerStyle("PALE_ALE")
                                     .quantityToBrew(100)
@@ -49,7 +51,6 @@ public class BeerLoader implements CommandLineRunner {
                                     .build());
 
             beerRepository.save(Beer.builder()
-                                  .id(BEER_3_UUID)
                                     .beerName("No Hammers On The Bar")
                                     .beerStyle("PALE_ALE")
                                     .quantityToBrew(100)
