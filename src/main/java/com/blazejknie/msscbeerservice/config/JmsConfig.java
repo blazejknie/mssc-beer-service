@@ -1,5 +1,6 @@
 package com.blazejknie.msscbeerservice.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,14 +14,14 @@ public class JmsConfig {
 
     public static final String BREWING_REQUEST_QUEUE_NAME = "brewing-request";
     public static final String NEW_INVENTORY_QUEUE_NAME = "new-inventory";
+    private ObjectMapper objectMapper;
 
     @Bean
     public MessageConverter messageConverter() {
-
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setTypeIdPropertyName("_type");
-
+        converter.setObjectMapper(objectMapper);
         return converter;
     }
 

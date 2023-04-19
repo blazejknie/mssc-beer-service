@@ -4,7 +4,6 @@ import com.blazejknie.msscbeerservice.domain.Beer;
 import com.blazejknie.msscbeerservice.repositories.BeerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -12,7 +11,6 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-@Profile("localmysql")
 public class BeerLoader implements CommandLineRunner {
 
     public static final String BEER_1_UPC = "0631234200036";
@@ -37,6 +35,7 @@ public class BeerLoader implements CommandLineRunner {
             beerRepository.save(Beer.builder()
                                     .beerName("Mango Bobs")
                                     .beerStyle("IPA")
+                                    .minOnHand(12)
                                     .quantityToBrew(200)
                                     .upc(BEER_1_UPC)
                                     .price(new BigDecimal("11.95"))
@@ -45,7 +44,8 @@ public class BeerLoader implements CommandLineRunner {
             beerRepository.save(Beer.builder()
                                     .beerName("Galaxy Cat")
                                     .beerStyle("PALE_ALE")
-                                    .quantityToBrew(100)
+                                    .minOnHand(12)
+                                    .quantityToBrew(200)
                                     .upc(BEER_2_UPC)
                                     .price(new BigDecimal("9.95"))
                                     .build());
@@ -53,7 +53,8 @@ public class BeerLoader implements CommandLineRunner {
             beerRepository.save(Beer.builder()
                                     .beerName("No Hammers On The Bar")
                                     .beerStyle("PALE_ALE")
-                                    .quantityToBrew(100)
+                                    .minOnHand(12)
+                                    .quantityToBrew(200)
                                     .upc(BEER_3_UPC)
                                     .price(new BigDecimal("9.95"))
                                     .build());
