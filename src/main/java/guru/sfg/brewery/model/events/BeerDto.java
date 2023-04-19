@@ -1,4 +1,4 @@
-package com.blazejknie.msscbeerservice.web.model;
+package guru.sfg.brewery.model.events;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class BeerDto implements Serializable {
     private String beerName;
 
     @NotNull
-    private BeerStyle beerStyle;
+    private String beerStyle;
 
     @NotBlank
     private String upc;

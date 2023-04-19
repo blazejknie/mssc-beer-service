@@ -2,7 +2,7 @@ package com.blazejknie.msscbeerservice.web.controller;
 
 import com.blazejknie.msscbeerservice.bootstrap.BeerLoader;
 import com.blazejknie.msscbeerservice.services.BeerService;
-import com.blazejknie.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.events.BeerDto;
 import com.blazejknie.msscbeerservice.web.model.BeerStyle;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -129,7 +129,7 @@ class BeerControllerTest {
     BeerDto getValidBeer() {
         return BeerDto.builder()
                       .beerName("Valid Beer")
-                      .beerStyle(BeerStyle.ALE)
+                      .beerStyle(BeerStyle.ALE.name())
                       .price(new BigDecimal("3.00"))
                       .upc(BeerLoader.BEER_1_UPC)
                       .build();

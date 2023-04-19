@@ -2,7 +2,8 @@ package com.blazejknie.msscbeerservice.services.brewing;
 
 import com.blazejknie.msscbeerservice.config.JmsConfig;
 import com.blazejknie.msscbeerservice.domain.Beer;
-import com.blazejknie.msscbeerservice.events.BrewBeerEvent;
+import guru.sfg.brewery.model.events.BeerDto;
+import guru.sfg.brewery.model.events.BrewBeerEvent;
 import com.blazejknie.msscbeerservice.repositories.BeerRepository;
 import com.blazejknie.msscbeerservice.services.inventory.InventoryService;
 import com.blazejknie.msscbeerservice.web.mappers.BeerMapper;
@@ -35,8 +36,10 @@ public class BrewingService {
             log.debug("Min Onhand is " + beer.getMinOnHand());
             log.debug("Inventory is: " + invQOH);
 
-            if (invQOH > beer.getMinOnHand()) {
-                jmsTemplate.convertAndSend(JmsConfig.BREWING_REQUEST_QUEUE_NAME, new BrewBeerEvent(beerMapper.beerToDto(beer)));
+            if (invQOH < beer.getMinOnHand()) {
+                BeerDto beerDto = beerMapper.beerToDto(beer);
+                BrewBeerEvent message = new BrewBeerEvent(beerDto);
+                jmsTemplate.convertAndSend(JmsConfig.BREWING_REQUEST_QUEUE_NAME, message);
             }
         });
     }

@@ -1,6 +1,5 @@
-package com.blazejknie.msscbeerservice.events;
+package guru.sfg.brewery.model.events;
 
-import com.blazejknie.msscbeerservice.web.model.BeerDto;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

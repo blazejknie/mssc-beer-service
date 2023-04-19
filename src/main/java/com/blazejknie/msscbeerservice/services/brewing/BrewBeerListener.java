@@ -2,10 +2,12 @@ package com.blazejknie.msscbeerservice.services.brewing;
 
 import com.blazejknie.msscbeerservice.config.JmsConfig;
 import com.blazejknie.msscbeerservice.domain.Beer;
-import com.blazejknie.msscbeerservice.events.BrewBeerEvent;
-import com.blazejknie.msscbeerservice.events.NewInventoryEvent;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import guru.sfg.brewery.model.events.BrewBeerEvent;
+import guru.sfg.brewery.model.events.NewInventoryEvent;
 import com.blazejknie.msscbeerservice.repositories.BeerRepository;
-import com.blazejknie.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.events.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
@@ -19,10 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class BrewBeerListener {
     private final BeerRepository beerRepository;
     private final JmsTemplate jmsTemplate;
+    private final ObjectMapper objectMapper;
 
     @Transactional
     @JmsListener(destination = JmsConfig.BREWING_REQUEST_QUEUE_NAME)
-    public void listen(BrewBeerEvent event) {
+    public void listen(BrewBeerEvent event) throws JsonProcessingException {
         BeerDto beerDto = event.getBeerDto();
 
         Beer beer = beerRepository.findByUpc(beerDto.getUpc());

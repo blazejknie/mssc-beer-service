@@ -1,7 +1,7 @@
 package com.blazejknie.msscbeerservice.web.controller;
 
 import com.blazejknie.msscbeerservice.services.BeerService;
-import com.blazejknie.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.events.BeerDto;
 import com.blazejknie.msscbeerservice.web.model.BeerPagedList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

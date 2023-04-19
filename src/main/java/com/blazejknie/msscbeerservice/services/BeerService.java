@@ -1,6 +1,6 @@
 package com.blazejknie.msscbeerservice.services;
 
-import com.blazejknie.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.events.BeerDto;
 import com.blazejknie.msscbeerservice.web.model.BeerPagedList;
 import org.springframework.data.domain.PageRequest;
 

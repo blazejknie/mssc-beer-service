@@ -1,7 +1,7 @@
 package com.blazejknie.msscbeerservice.web.mappers;
 
 import com.blazejknie.msscbeerservice.domain.Beer;
-import com.blazejknie.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.events.BeerDto;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 

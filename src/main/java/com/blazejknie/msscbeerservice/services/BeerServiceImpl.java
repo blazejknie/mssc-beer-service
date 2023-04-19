@@ -4,7 +4,7 @@ import com.blazejknie.msscbeerservice.domain.Beer;
 import com.blazejknie.msscbeerservice.repositories.BeerRepository;
 import com.blazejknie.msscbeerservice.web.controller.NotFoundException;
 import com.blazejknie.msscbeerservice.web.mappers.BeerMapper;
-import com.blazejknie.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.events.BeerDto;
 import com.blazejknie.msscbeerservice.web.model.BeerPagedList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -42,7 +42,7 @@ public class BeerServiceImpl implements BeerService {
                               .orElseThrow((() -> new NotFoundException("No beer with id: " + beerId)));
 
         beer.setBeerName(beerDto.getBeerName());
-        beer.setBeerStyle(beerDto.getBeerStyle().name());
+        beer.setBeerStyle(beerDto.getBeerStyle());
         beer.setPrice(beerDto.getPrice());
         beer.setUpc(beerDto.getUpc());
 
