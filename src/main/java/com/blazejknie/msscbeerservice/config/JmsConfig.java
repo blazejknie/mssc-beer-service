@@ -11,6 +11,8 @@ import org.springframework.jms.support.converter.MessageType;
 @AllArgsConstructor
 public class JmsConfig {
 
+    public static final String BREWING_REQUEST_QUEUE_NAME = "brewing-request";
+
     @Bean
     public MessageConverter messageConverter() {
 
