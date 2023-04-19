@@ -1,4 +1,4 @@
-package com.blazejknie.msscbeerservice.services;
+package com.blazejknie.msscbeerservice.services.brewing;
 
 import com.blazejknie.msscbeerservice.config.JmsConfig;
 import com.blazejknie.msscbeerservice.domain.Beer;
