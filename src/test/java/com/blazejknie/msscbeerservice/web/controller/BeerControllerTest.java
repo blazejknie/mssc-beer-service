@@ -1,9 +1,9 @@
 package com.blazejknie.msscbeerservice.web.controller;
 
-import com.blazejknie.msscbeerservice.bootstrap.BeerLoader;
+import com.blazejknie.msscbeerservice.domain.bootstrap.BeerLoader;
 import com.blazejknie.msscbeerservice.services.BeerService;
-import guru.sfg.brewery.model.events.BeerDto;
-import com.blazejknie.msscbeerservice.web.model.BeerStyle;
+import guru.sfg.brewery.model.BeerDto;
+import guru.sfg.brewery.model.BeerStyle;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

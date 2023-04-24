@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.sfg.brewery.model.events.BrewBeerEvent;
 import guru.sfg.brewery.model.events.NewInventoryEvent;
 import com.blazejknie.msscbeerservice.repositories.BeerRepository;
-import guru.sfg.brewery.model.events.BeerDto;
+import guru.sfg.brewery.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;

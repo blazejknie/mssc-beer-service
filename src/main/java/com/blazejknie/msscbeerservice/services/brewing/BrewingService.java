@@ -2,7 +2,7 @@ package com.blazejknie.msscbeerservice.services.brewing;
 
 import com.blazejknie.msscbeerservice.config.JmsConfig;
 import com.blazejknie.msscbeerservice.domain.Beer;
-import guru.sfg.brewery.model.events.BeerDto;
+import guru.sfg.brewery.model.BeerDto;
 import guru.sfg.brewery.model.events.BrewBeerEvent;
 import com.blazejknie.msscbeerservice.repositories.BeerRepository;
 import com.blazejknie.msscbeerservice.services.inventory.InventoryService;

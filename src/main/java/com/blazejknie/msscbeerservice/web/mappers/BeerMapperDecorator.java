@@ -2,7 +2,7 @@ package com.blazejknie.msscbeerservice.web.mappers;
 
 import com.blazejknie.msscbeerservice.domain.Beer;
 import com.blazejknie.msscbeerservice.services.inventory.InventoryService;
-import guru.sfg.brewery.model.events.BeerDto;
+import guru.sfg.brewery.model.BeerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class BeerMapperDecorator implements BeerMapper {

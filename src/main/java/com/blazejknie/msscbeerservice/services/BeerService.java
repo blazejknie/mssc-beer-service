@@ -1,7 +1,7 @@
 package com.blazejknie.msscbeerservice.services;
 
-import guru.sfg.brewery.model.events.BeerDto;
-import com.blazejknie.msscbeerservice.web.model.BeerPagedList;
+import guru.sfg.brewery.model.BeerDto;
+import guru.sfg.brewery.model.BeerPagedList;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.UUID;
