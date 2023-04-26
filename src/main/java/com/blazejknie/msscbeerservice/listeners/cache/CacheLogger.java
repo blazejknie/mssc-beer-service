@@ -1,4 +1,4 @@
-package com.blazejknie.msscbeerservice.listeners;
+package com.blazejknie.msscbeerservice.listeners.cache;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ehcache.event.CacheEvent;

@@ -1,6 +1,6 @@
 package com.blazejknie.msscbeerservice.web.controller;
 
-import com.blazejknie.msscbeerservice.domain.bootstrap.BeerLoader;
+import com.blazejknie.msscbeerservice.bootstrap.BeerLoader;
 import com.blazejknie.msscbeerservice.services.BeerService;
 import guru.sfg.brewery.model.BeerDto;
 import guru.sfg.brewery.model.BeerStyle;
