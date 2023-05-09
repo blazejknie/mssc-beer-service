@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class BrewBeerListener {
     private final BeerRepository beerRepository;
     private final JmsTemplate jmsTemplate;
-    private final ObjectMapper objectMapper;
 
     @Transactional
     @JmsListener(destination = JmsConfig.BREWING_REQUEST_QUEUE_NAME)
