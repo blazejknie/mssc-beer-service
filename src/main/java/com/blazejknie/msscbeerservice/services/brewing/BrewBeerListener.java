@@ -2,12 +2,12 @@ package com.blazejknie.msscbeerservice.services.brewing;
 
 import com.blazejknie.msscbeerservice.config.JmsConfig;
 import com.blazejknie.msscbeerservice.domain.Beer;
+import com.blazejknie.msscbeerservice.repositories.BeerRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import guru.sfg.brewery.model.BeerDto;
 import guru.sfg.brewery.model.events.BrewBeerEvent;
 import guru.sfg.brewery.model.events.NewInventoryEvent;
-import com.blazejknie.msscbeerservice.repositories.BeerRepository;
-import guru.sfg.brewery.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;

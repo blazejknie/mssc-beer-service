@@ -26,9 +26,9 @@ public class BeerInventoryFeignService implements InventoryService {
         ResponseEntity<List<BeerInventoryDto>> response = inventoryServiceFeignClient.getOnhandInventory(beerId);
 
         Integer onHand = Objects.requireNonNull(response.getBody())
-                         .stream()
-                         .mapToInt(BeerInventoryDto::getQuantityOnHand)
-                         .sum();
+                .stream()
+                .mapToInt(BeerInventoryDto::getQuantityOnHand)
+                .sum();
 
         log.debug("BeerId: " + beerId + " On Hand is: " + onHand);
 

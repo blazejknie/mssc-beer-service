@@ -6,18 +6,12 @@ import guru.sfg.brewery.model.BeerPagedList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.UUID;
+
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
 @RestController
@@ -29,7 +23,7 @@ public class BeerController {
     private final BeerService beerService;
 
     @GetMapping(produces = "application/json", path = "beer")
-    public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber",required = false) Integer pageNumber,
+    public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                    @RequestParam(value = "beerName", required = false) String beerName,
                                                    @RequestParam(value = "beerStyle", required = false) String beerStyle,
@@ -72,7 +66,7 @@ public class BeerController {
 
     @PostMapping("beer")
     public ResponseEntity<Void> saveNewBeer(@Valid @RequestBody BeerDto beerDto) {
-         BeerDto savedBeer = beerService.save(beerDto);
+        BeerDto savedBeer = beerService.save(beerDto);
         return ResponseEntity.created(URI.create("/api/v1/beer/" + savedBeer.getId())).build();
     }
 

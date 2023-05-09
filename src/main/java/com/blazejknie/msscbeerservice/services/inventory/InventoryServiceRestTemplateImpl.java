@@ -24,12 +24,12 @@ public class InventoryServiceRestTemplateImpl implements InventoryService {
 
     private String beerInventoryServiceHost;
 
-    public void setBeerInventoryServiceHost(String beerInventoryServiceHost) {
-        this.beerInventoryServiceHost = beerInventoryServiceHost;
-    }
-
     public InventoryServiceRestTemplateImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
+    }
+
+    public void setBeerInventoryServiceHost(String beerInventoryServiceHost) {
+        this.beerInventoryServiceHost = beerInventoryServiceHost;
     }
 
     @Override

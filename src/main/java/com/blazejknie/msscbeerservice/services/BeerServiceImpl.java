@@ -39,7 +39,7 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public BeerDto update(UUID beerId, BeerDto beerDto) {
         Beer beer = repository.findById(beerId)
-                              .orElseThrow((() -> new NotFoundException("No beer with id: " + beerId)));
+                .orElseThrow((() -> new NotFoundException("No beer with id: " + beerId)));
 
         beer.setBeerName(beerDto.getBeerName());
         beer.setBeerStyle(beerDto.getBeerStyle());

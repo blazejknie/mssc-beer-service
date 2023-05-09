@@ -8,7 +8,7 @@ import org.ehcache.event.CacheEventListener;
 public class CacheLogger implements CacheEventListener<Object, Object> {
     @Override
     public void onEvent(CacheEvent<?, ?> cacheEvent) {
-      log.info("key {} | EventType {} | Old value {} | New value {} ",
-              cacheEvent.getKey(), cacheEvent.getType(), cacheEvent.getOldValue(), cacheEvent.getNewValue());
+        log.info("key {} | EventType {} | Old value {} | New value {} ",
+                cacheEvent.getKey(), cacheEvent.getType(), cacheEvent.getOldValue(), cacheEvent.getNewValue());
     }
 }
