@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
-@Profile("local_discovery")
+@Profile("localdiscovery")
 @Service
 public class BeerInventoryFeignService implements InventoryService {
 

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@Profile("!local_discovery")
+@Profile("!localdiscovery")
 @Slf4j
 @ConfigurationProperties(prefix = "blazej.brewery", ignoreUnknownFields = false)
 @Component
