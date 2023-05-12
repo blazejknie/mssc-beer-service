@@ -2,7 +2,9 @@ package com.blazejknie.msscbeerservice.services.inventory;
 
 import com.blazejknie.msscbeerservice.services.inventory.model.BeerInventoryDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -16,7 +18,7 @@ import java.util.UUID;
 
 @Profile("!localdiscovery")
 @Slf4j
-@ConfigurationProperties(prefix = "blazej.brewery", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "blazej.brewery", ignoreUnknownFields = true)
 @Component
 public class InventoryServiceRestTemplateImpl implements InventoryService {
 
@@ -24,8 +26,10 @@ public class InventoryServiceRestTemplateImpl implements InventoryService {
 
     private String beerInventoryServiceHost;
 
-    public InventoryServiceRestTemplateImpl(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public InventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder,
+                                            @Value("blazej.brewery.inventory-user") String inventoryUser,
+                                            @Value("blazej.brewery.inventory-password") String inventoryPassword) {
+        this.restTemplate = restTemplateBuilder.basicAuthentication(inventoryUser, inventoryPassword).build();
     }
 
     public void setBeerInventoryServiceHost(String beerInventoryServiceHost) {
