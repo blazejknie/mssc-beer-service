@@ -25,8 +25,8 @@ This service is consumed by:
 ## Running Locally
 ```bash
 mvn clean spring-boot:run
-
-## 1️⃣ Architecture & Flow Diagrams (Mermaid)
+```
+## 1️⃣ Architecture & Flow Diagrams
 
 ### 🌐 High-Level Microservices Architecture
 
@@ -167,23 +167,3 @@ Start services in the following order:
 | API Gateway      | [http://localhost:9090](http://localhost:9090) (example) |
 | Config Server    | [http://localhost:8888](http://localhost:8888)           |
 
----
-
-## 📌 Recommended README Placement
-
-* **Each service README** → add:
-
-  * Architecture Role
-  * Mermaid diagram (subset)
-* **Gateway README** → full security + routing flow
-* **Root / docs repo** → this full document
-
----
-
-## 🎯 Outcome
-
-With these additions, the Brewery system documentation now:
-
-* Explains **how services cooperate**
-* Shows **real microservices flows visually**
-* Is ready for **interviews, onboarding, and portfolio use**
